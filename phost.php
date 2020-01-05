@@ -1,33 +1,40 @@
 <?php
-   
-  $webpath = readline("Please, what's your web path server ? ");
-  $vhost = readline("Name of your vhost: ");
-  $extension = readline("Extension website name ? E.X: .tk, .study, etc..");
-  
-  try {
-    $user = get_current_user();
-    //shell_exec("mkdir -p {$webpath}".DIRECTORY_SEPARATOR."$vhost");
-    $user = get_current_user();
-    $complete_path = "{$webpath}".DIRECTORY_SEPARATOR."$vhost";
-    shell_exec("mkdir -p {$complete_path}");
-    shell_exec("chown -R {$user}:{$user} {$complete_path}");
-    shell_exec("chmod 777 -R {$complete_path}");
-    // Write apache2 vhost conf
-    $apache2_config = <<<EOT
-    <VirtualHost *:80>
-      ServerAdmin webmaster@ostechnix1.lan
-      ServerName $vhost.$extension
-      ServerAlias www.$vhost.$extension
-      DocumentRoot  $complete_path
 
-      ErrorLog  \$${APACHE_LOG_DIR}/error.log
-      CustomLog \$${APACHE_LOG_DIR}/access.log combined
+  print("[*] PHost Tool\n");
+  $webpath = "/var/www/html";
+  $vhost = "thiago";
+  $extension = "tk";
 
-      </VirtualHost>
+  try {  
+    $user = get_current_user();
+    $complete_path = "{$webpath}/{$vhost}";
+    $mkdir = "mkdir -p {$complete_path}";
+    $brackets = array("{", "}");
+    print("[*] Creating dir...\n");
+    shell_exec($mkdir);
+    print("[*] Change group...\n");
+    $group = "chown -R {$user}:{$user} $complete_path";
+    shell_exec($group);
+    print("[*] Right permissions...\n");
+    $permissions = "chmod -R 755 {$webpath}";
+    shell_exec($permissions);
+    print("[*] Creating apache2 config file...\n");
+    $apache2_config_file = <<<EOT
+    "<VirtualHost *:80>
+        ServerAdmin {$user}@admin.{$extension}
+        ServerName $vhost.$extension
+        ServerAlias www.$vhost.$extension
+        DocumentRoot  $complete_path
+    </VirtualHost>"
 EOT;
-    echo $apache2_config;
-  } catch (Exception $exception){
-    print("{$exception}");
+    print("[*] Copy to default dir...\n");
+    shell_exec("echo {$apache2_config_file} > {$vhost}.{$extension}.conf");
+    $copy_file = "cp {$vhost}.{$extension}.conf /etc/apache2/sites-available/{$vhost}.{$extension}.conf";
+    shell_exec($copy_file);
+    print("[*] Restarting apache2...\n");
+    shell_exec("systemctl restart apache2.service");
+  } catch(Exception $e) {
+    print("Error: {$e->getMessage()}");
   }
-  echo "Your webpath: {$webpath}\n";
+
 ?>
