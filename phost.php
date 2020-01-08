@@ -5,7 +5,7 @@
   $vhost = "testng";
   $extension = "tk";
 
-  try {  
+  try {
     $user = get_current_user();
     $complete_path = "{$webpath}/{$vhost}";
     $mkdir = "mkdir -p {$complete_path}";
@@ -33,6 +33,13 @@ EOT;
     shell_exec($copy_file);
     print("[*] Restarting apache2...\n");
     shell_exec("systemctl restart apache2.service");
+    print("[*] Writing on hosts file....\n");
+    $hosts  = "127.0.0.1  {$vhost}.{$extension}";
+    shell_exec("echo {$hosts} >> /etc/hosts");
+    print("[*] Activate vhost config");
+    shell_exec("a2ensite {$vhost}.{$extension}.conf");
+    shell_exec("systemctl restart apache2.service");
+    print("[*] No error reporting, thanks to use it! :D");
   } catch(Exception $e) {
     print("Error: {$e->getMessage()}");
   }
