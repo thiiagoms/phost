@@ -1,6 +1,6 @@
 <?php
 
-  print("[*] PHost Tool\n");
+  print("[*] PHost tool\n");
   $webpath = "/var/www/html";
   $vhost = "testng";
   $extension = "tk";
