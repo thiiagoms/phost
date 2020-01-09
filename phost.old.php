@@ -2,7 +2,7 @@
 
   print("[*] PHost tool\n");
   $webpath = "/var/www/html";
-  $vhost = "testng";
+  $vhost = "testing";
   $extension = "tk";
 
   try {
