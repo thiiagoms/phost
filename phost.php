@@ -18,6 +18,25 @@
       $phost->changePermissions($cmpPath, NULL, 'group', $user);
       print("[*] Grant all permissions...\n");
       $phost->changePermissions($cmpPath, '777', 'dir', NULL);
+      print("[*] Creating apache2 config file!");
+      $apache2 = <<<EOT
+      "<VirtualHost *:80>
+        ServerAdmin {$user}@admin.{$extension}
+        ServerName $domain.$extension
+        ServerAlias www.$domain.$extension
+        DocumentRoot  $webpath/$domain
+      </VirtualHost>"
+EOT;
+      $phost->createTMPFile($apache2, '/etc/apache2/sites-available', $domain, $extension);
+      print("[*] Restarting apache2 service!\n");
+      $phost->execCMD("systemctl restart apache2.service");
+      print("[*] Writing on hosts file!\n");
+      $hosts = "127.0.0.1 {$domain}.{$extension}";
+      $phost->createSingleFile($hosts, '/etc/hosts');
+      print("[*] Activate vhost config!\n");
+      $phost->execCMD("a2ensite {$domain}.{$extension}.conf");
+      print("[*] Restarting apache2.service!\n");
+      $phost->execCMD("systemctl restart apache2.service");
     endif;   
   } catch (Exception $e) 
   {
