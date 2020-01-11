@@ -42,27 +42,27 @@
     {
       if($option == 'dir')
       {
-        VHost::execCMD("chmod {$permissions} -R {$directory}");
+        return VHost::execCMD("chmod {$permissions} -R {$directory}");
       } if ($option == 'group')
       {
-        VHost::execCMD("chown -R {$user}:{$user} $directory");
+        return VHost::execCMD("chown -R {$user}:{$user} $directory");
       }
-
     }
 
-
-    public function createDirectory($webpath, $origin = Null, $destiny = Null)
+    public function createDirectory($webpath, $origin = NULL, $destiny = NULL)
     {
-      VHost::execCMD("mkdir -p {$webpath}".DIRECTORY_SEPARATOR."{$origin}");
-    }
-    public function createTMPFile($file)
-    {
-      return "Creating TMP File";
+      return VHost::execCMD("mkdir -p {$webpath}".DIRECTORY_SEPARATOR."{$origin}");
     }
 
-    public function removeTMPFile($file)
+    public function createTMPFile($file = NULL, $path = NULL, $domain = NULL, $extension)
     {
-      return "Remove TMP File";
+      $cmd = "echo {$file} >> {$path}".DIRECTORY_SEPARATOR."{$domain}.{$extension}.conf";
+      return vHost::execCMD($cmd);
+    }
+
+    public function createSingleFile($file, $path)
+    {
+      return VHost::execCMD("echo {$file} >> {$path}");
     }
   }
 ?> 
