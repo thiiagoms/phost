@@ -49,9 +49,9 @@
       }
     }
 
-    public function createDirectory($webpath, $origin = NULL, $destiny = NULL)
+    public function createDirectory($path)
     {
-      return VHost::execCMD("mkdir -p {$webpath}".DIRECTORY_SEPARATOR."{$origin}");
+      return mkdir($path, 0700, true);
     }
 
     public function createTMPFile($file = NULL, $path = NULL, $domain = NULL, $extension)
