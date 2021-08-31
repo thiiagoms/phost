@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+
+if (php_sapi_name() != 'cli') {
+    echo "Only in CLI Mode";
+    exit;
+}
+
+use Src\Commands\BannerCommand;
+use Src\Commands\DirectoryCommand;
+
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$commands = new DirectoryCommand();
+
+if (isset($argv[1]) == '--help' || isset($argv[1]) == '-h') {
+    BannerCommand::help();
+    return;
+}
+
+if (posix_getuid() != 0) {
+    echo "\e[31mYou must run PHost with sudo!" . PHP_EOL;
+    echo "\e[31mCurrent user:  ". get_current_user() . PHP_EOL;
+    exit;
+}
+
+BannerCommand::banner();
+
+$domain = readline(">>> Domain name: ");
+$extension = readline(">>> Extension: ");
+
+$clue = $domain . '.' . $extension;
+
+$commands->createDirectory('/var/www/html/' . $domain . '.' . $extension . '/public_html', 0700, true);
+$commands->chownPermissions('/var/www/html/'. $domain . '.' . $extension, get_current_user());
+
+$template = $commands->getViews()->render('apache', [
+    'user' => get_current_user(),
+    'domain' => $domain,
+    'extension' => $extension,
+    'webpath' => 'var/www/html/'
+]);
+
+$commands->write(
+    '/etc/apache2/sites-available',
+    '/etc/apache2/sites-available' . DIRECTORY_SEPARATOR . $clue . '.conf',
+    $template
+);
+
+shell_exec("systemctl restart apache2.service");
+
+$hosts = '127.0.0.1 ' . $clue . PHP_EOL;
+$commands->write('/etc/hosts', '/etc/hosts', $hosts);
+
+shell_exec("a2ensite {$clue}.conf");
+shell_exec("systemctl restart apache2");
+
+BannerCommand::finish($clue);

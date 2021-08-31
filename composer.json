@@ -1,0 +1,15 @@
+{
+    "name": "thiiagoms/phost",
+    "authors": [
+        {
+            "name": "Thiago AKA thiiagoms",
+            "email": "thiagom.devsec@gmail.com",
+            "homepage": "https://thiiagoms.github.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src"
+        }
+    }
+}
