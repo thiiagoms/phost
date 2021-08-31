@@ -1,17 +1,48 @@
-# PHost - Easy way to create virtual hosts! :shell:
+# PHost - easy way to create virtual hosts! :penguin:
 
-Hi! Thanks so much for choose PHost! :smiley: 
+<p align="center">
+  <a href="https://github.com/thiiagoms/phost">
+    <img src="assets/elephant.png" alt="Logo" width="80" height="80">
+  </a>
+     <h3 align="center">Thanks so much for choose PHost! :hearts:</h3>
+</p>
+
+- How to install ?!
+    - Install Dependencies (Linux, Apache2, PHP and Composer) if you want.
+    - Generate autoload
+- How to use it ?! 
+
+- Clone repository:
+``` bash
+ubuntu@ubuntu:~$ git clone https://github.com/thiiagoms/phost
+```
+- Install dependencies:
+```bash
+ubuntu@ubuntu:~/phost$ chmod +x install.sh
+ubuntu@ubuntu:~/phost$ ./install.sh
+```
+- Generate autoload:
+```bash
+ubuntu@ubuntu:~/phost$ composer dump-autoload
+```
+
+- How to use it ?! Just answer the following questions <3!
+```bash
+ubuntu@ubuntu:~/phost$ chmod +x phost
+ubuntu@ubuntu:~/phost$ sudo ./phost
 
 
-# How to use it ?! 
-- First, clone the repository in the path of your web server (/var/www/html or /srv/http), like: 
-```
-ubuntu@ubuntu:~$ git clone https://github.com/ekkopy/phost.git /var/www/html/phost
-```
-- After, we'll run the PHost with sudo (we need to use sudo for apply changes in protected files):
-```
-ubuntu@ubuntu:/var/html/phost $  sudo php phost.php
-```
-Can you see it ?! PHost is very easy!
+    ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗
+    ██╔══██╗██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
+    ██████╔╝███████║██║   ██║███████╗   ██║
+    ██╔═══╝ ██╔══██║██║   ██║╚════██║   ██║
+    ██║     ██║  ██║╚██████╔╝███████║   ██║
+    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝
 
-### OBS: Until the date, PHost works only on ubuntu 18.04+, Mint  19 and all ubuntu like!
+
+    [*] Author: Thiago AKA thiiagoms
+    [*] Version: 1.1
+    [*] Thanks so much for using phost!
+
+>>> Domain name:
+
