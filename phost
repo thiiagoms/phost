@@ -8,7 +8,7 @@ if (php_sapi_name() != 'cli') {
 }
 
 if (posix_getuid() != 0) {
-    die("Pleas run phost with sudo!\n");
+    die("Please run phost with sudo!\n");
 }
 
 require_once __DIR__ . '/bootstrap.php';
