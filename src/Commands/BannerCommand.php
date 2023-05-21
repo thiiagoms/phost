@@ -1,59 +1,37 @@
 <?php
 
-namespace Src\Commands;
+declare(strict_types=1);
 
-use Src\Utils\Printer;
+namespace PHost\Commands;
+
+use PHost\Utils\Printer;
 
 /**
- * Messages helpers of phost
- * 
- * @package Src\Commands
+ * Banner Command
+ *
+ * @package PHost\Commands
+ * @author Thiago <thiiagoms@proton.me>
+ * @version 1.0
  */
-class BannerCommand extends Printer
+final class BannerCommand
 {
-
     /**
-     *  Main command about PHost
-     * 
+     * Initial banner
+     *
      * @return void
      */
-    public static function banner(): void
+    public static function init(): void
     {
-        Printer::display("
-        \e[31m
-        ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗
-        ██╔══██╗██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
-        ██████╔╝███████║██║   ██║███████╗   ██║   
-        ██╔═══╝ ██╔══██║██║   ██║╚════██║   ██║   
-        ██║     ██║  ██║╚██████╔╝███████║   ██║   
-        ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝
-        
-        \e[93m
-        [*] Author: Thiago AKA thiiagoms
-        [*] Version: 1.1
-        [*] Thanks so much for using phost!\e[0m
-        ");
+        Printer::info('
+            ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗
+            ██╔══██╗██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
+            ██████╔╝███████║██║   ██║███████╗   ██║ 
+            ██╔═══╝ ██╔══██║██║   ██║╚════██║   ██║ 
+            ██║     ██║  ██║╚██████╔╝███████║   ██║
+            ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝
+            
+            [*] Author: Thiago AKA thiiagoms
+            [*] Version: 1.1
+        ');
     }
-
-    /**
-     * How to use phost
-     * 
-     * @return void
-     */
-    public static function help(): void
-    {
-        Printer::display("\e[96musage: ./host [answer-the-questions]");
-    }
-
-    /**
-     * Finish phost use=
-     * 
-     * @param string $domain
-     * @return void
-     */
-    public static function finish(string $domain): void
-    {
-        Printer::display("\e[34m Finish to set host config: {$domain}");
-    }
-
 }
