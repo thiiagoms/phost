@@ -4,18 +4,17 @@ namespace Src\Utils;
 
 /**
  * Render config templates
- * 
+ *
  * @package Src\Utils
  */
 class Views
 {
-
     /** @var const $templates default location */
     private const TEMPLATES = __DIR__ . '/../../resources/';
 
     /**
      * Check if template config file exists on default directory
-     * 
+     *
      * @param string $template
      * @return string
      */
@@ -28,9 +27,9 @@ class Views
 
     /**
      * Render template with values
-     * 
+     *
      * @param string $template
-     * @param array $data 
+     * @param array $data
      * @return string
      */
     public function render(string $template, array $data = []): string
@@ -38,7 +37,6 @@ class Views
         $file = $this->getTemplate($template);
 
         if (isset($file)) {
-            
             $keys = array_keys($data);
 
             $keys = array_map(function (string $item) {
@@ -49,6 +47,5 @@ class Views
         }
 
         return "Template: $file not found";
-        
     }
 }
