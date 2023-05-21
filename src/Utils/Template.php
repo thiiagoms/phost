@@ -1,44 +1,47 @@
 <?php
 
-namespace Src\Utils;
+declare(strict_types=1);
+
+namespace PHost\Utils;
 
 /**
- * Render config templates
- * 
- * @package Src\Utils
+ * Template render
+ *
+ * @package PHost\Utils
+ * @author Thiago <thiiagoms@proton.me>
+ * @version 1.0
  */
-class Views
+final class Template
 {
-
-    /** @var const $templates default location */
-    private const TEMPLATES = __DIR__ . '/../../resources/';
+    /**
+     * Directory path for templates.
+     */
+    private const TEMPLATE_DIR = __DIR__ . '/../../resources/';
 
     /**
-     * Check if template config file exists on default directory
-     * 
-     * @param string $template
-     * @return string
+     * Retrieves the contents of a template file.
+     *
+     * @param string $template The name of the template file.
+     * @return string The contents of the template file.
      */
-    public function getTemplate(string $template): string
+    private static function get(string $template): string
     {
-        $file = self::TEMPLATES . $template . '.conf';
-        // return file_exists($file) ? file_get_contents($file) : "Template {$template}.{$extension} not found";
+        $file = sprintf("%s%s.conf", self::TEMPLATE_DIR, $template);
         return file_get_contents($file) ?? '';
     }
 
     /**
-     * Render template with values
-     * 
-     * @param string $template
-     * @param array $data 
-     * @return string
+     * Renders a template with the provided data.
+     *
+     * @param string $template The name of the template file.
+     * @param array $data The data to be replaced in the template.
+     * @return string The rendered template.
      */
-    public function render(string $template, array $data = []): string
+    public static function render(string $template, array $data): string
     {
-        $file = $this->getTemplate($template);
+        $file = self::get($template);
 
-        if (isset($file)) {
-            
+        if (!empty($file)) {
             $keys = array_keys($data);
 
             $keys = array_map(function (string $item) {
@@ -48,7 +51,7 @@ class Views
             return str_replace($keys, array_values($data), $file);
         }
 
-        return "Template: $file not found";
-        
+        Printer::error("Template conf not found");
+        die();
     }
 }
