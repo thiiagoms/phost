@@ -1,48 +1,79 @@
-# PHost - easy way to create virtual hosts! :penguin:
+<div align="center">
+    <a href="https://github.com/thiiagoms/phost">
+        <img src="assets/elephant.png" alt="Logo" width="80" height="80">
+    </a>
+    <h3 align="center">Create virtual hosts with PHost :elephant:</h3>
+    <p float="left">
+        <img
+            src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"
+            alt="PHP"
+        >
+    </p>
+</div>
 
-<p align="center">
-  <a href="https://github.com/thiiagoms/phost">
-    <img src="assets/elephant.png" alt="Logo" width="80" height="80">
-  </a>
-     <h3 align="center">Thanks so much for choose PHost! :hearts:</h3>
-</p>
+Simple CLI tool designed to simplify the process of creating and managing virtual host configurations on a local development environment. It provides a convenient way to set up virtual hosts for web projects, making it easier to access them through custom domain names.
 
-- How to install ?!
-    - Install Dependencies (Linux, Apache2, PHP and Composer) if you want.
-    - Generate autoload
-- How to use it ?! 
+- [Dependencies](#Dependencies)
+- [Install](#Install)
+- [Run](#Run)
 
-- Clone repository:
-``` bash
-ubuntu@ubuntu:~$ git clone https://github.com/thiiagoms/phost
-```
-- Install dependencies:
+### Dependencies :heavy_plus_sign:
+* PHP 8.1+
+* Composer or Docker
+
+### Install :package:
+
+01 -) Clone:
 ```bash
-ubuntu@ubuntu:~/phost$ chmod +x install.sh
-ubuntu@ubuntu:~/phost$ ./install.sh
-```
-- Generate autoload:
-```bash
-ubuntu@ubuntu:~/phost$ composer dump-autoload
+$ git clone https://github.com/thiiagoms/phost
 ```
 
-- How to use it ?! Just answer the following questions <3!
+02 -) Change to `phost` directory:
 ```bash
-ubuntu@ubuntu:~/phost$ chmod +x phost
-ubuntu@ubuntu:~/phost$ sudo ./phost
+$ cd phost
+phost $
+```
+
+03 -) Install dependencies with `composer` package manager:
+```bash
+phost $ composer install
+```
+
+### Run :runner:
+
+01 -) Give `phost` permissions:
+```bash
+phost $ chmod +x phost
+```
+
+02 -) Run `phost` with **sudo**:
+```bash
+phost $ ./phost
+
+  ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗
+  ██╔══██╗██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
+  ██████╔╝███████║██║   ██║███████╗   ██║ 
+  ██╔═══╝ ██╔══██║██║   ██║╚════██║   ██║ 
+  ██║     ██║  ██║╚██████╔╝███████║   ██║
+  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝
+  
+  [*] Author: Thiago AKA thiiagoms
+  [*] Version: 1.1
+        
+>>> domain:
+>>> extension: 
+```
 
 
-    ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗
-    ██╔══██╗██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
-    ██████╔╝███████║██║   ██║███████╗   ██║
-    ██╔═══╝ ██╔══██║██║   ██║╚════██║   ██║
-    ██║     ██║  ██║╚██████╔╝███████║   ██║
-    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝
+### Bonus:
 
+01 -) Run lint:
+```bash
 
-    [*] Author: Thiago AKA thiiagoms
-    [*] Version: 1.1
-    [*] Thanks so much for using phost!
+phost $ composer phpcs
+```
 
->>> Domain name:
-
+02 -) Run tests:
+```bash
+phost $ composer test
+```
